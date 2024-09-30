@@ -46,7 +46,18 @@ def getContours(img):
             print(len(approx))
             objCor = len(approx)
             x,y,w,h = cv2.boundingRect(approx)
+            if objCor == 3: ObjectType = "Tri"
+            elif objCor == 4:
+                aspratio= w/float(h)
+                if aspratio>0.95 and aspratio <1.05 : objectType = "Square"
+                else : objectType = "REctangle"
+            elif objCor>4: objectType = "Circle"
+            else:ObjectType="None"
             cv2.rectangle(imgContour,(x,y),(x+w,y+h),(0,255,0),2)
+            cv2.putText(imgContour,objectType,
+                        (x+(w//2)-10, y+(h//2)-10),cv2.FONT_HERSHEY_COMPLEX,0.7,
+                        (0,00),2)
+        
 
 path = 'C:/Users/ARYAN PUND/Downloads/istockphoto-900920780-612x612.jpg'
 img = cv2.imread(path)
